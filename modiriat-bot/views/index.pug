@@ -1,0 +1,112 @@
+extends layout
+
+block content
+	.container
+		if success
+			.alert.alert-success(role="alert") thank you! you've been successfully added.
+				a.close(role='button',href="/" , aria-label='Close')
+					span(aria-hidden='true') ×
+
+		h1.text-center.mt-5.count-down
+		hr.mt-5.mb-5
+		.row
+			.col-lg-6.mb-3
+				.mb-2
+					b share Goal:  #{shareGoal}| So Far: #{totalClick}
+				- var percent = Math.round(totalClick/shareGoal*100)
+
+				.progress.mb-2
+					.progress-bar.bg-success(role='progressbar', style='width:'+ percent +'%', aria-valuenow=percent, aria-valuemin='0', aria-valuemax='100')
+					= percent + '%'
+				hr
+
+				.buttons-container
+					.button-container
+						a.btn.btn-lg.btn-block.btn-outline-primary(role="button" target="_blank" href="https://t.me/sinak69" data-name="telegram")
+							i.fab.fa-telegram-plane
+							|	join my telegram channel
+							|         
+							span.badge.badge-light.float-right.mt-1= clickCounts.telegram || '0'
+
+					.button-container
+						a.btn.btn-lg.btn-block.btn-outline-danger(role="button" target="_blank" href="https://instagram.com/tech_insided" data-name="instagram")
+							i.fab.fa-instagram
+							|   join my instagram channel 
+							|         
+							span.badge.badge-light.float-right.mt-1= clickCounts.instagram || '0'
+ 
+
+					.button-container
+						a.btn.btn-lg.btn-block.btn-outline-info(role="button" target="_blank" href="https://twitter.com/testing16378149" data-name="twitter")
+							i.fab.fa-twitter
+							|   join my twitter channel
+							|         
+							span.badge.badge-light.float-right.mt-1= clickCounts.twitter || '0'
+
+
+			.col-lg-6
+				.mb-2
+					b Subscriber Goal:  #{goal}| So Far: #{count}
+				- var percent = Math.round(count/goal*100)	
+
+				.progress.mb-2
+					.progress-bar.bg-success(role='progressbar', style='width:'+ percent +'%', aria-valuenow=percent, aria-valuemin='0', aria-valuemax='100')
+					= percent + '%'
+
+				hr
+
+				form(method="POST" action="/subscribe")
+					.form-group
+						label(for="name") your name:
+						input.form-control(id="name" name="name" placeholder="your full name ...")
+					.form-group
+						label(for="email") your email address:
+						input.form-control(id="email" name="email" type="email" placeholder="please enter your email address...")
+					button.btn.btn-primary(type="submit") join email list
+
+
+				hr
+
+				b latest Subscribers 
+				table.table.table-hover.table-borderless
+					each lead in leads
+						- var nameParts= lead.name.split(' ')
+						- var name = nameParts[0]
+						- if (nameParts[1]) name +=' '+ nameParts[1][0]+ '.'
+						tr
+							td(style="width: 24px;")
+								img.rounded(width="24" src=lead.gravatar)
+							td= name
+							td.text-right.text-secondary
+								if (lead.createdAt)
+									span= moment(lead.createdAt).fromNow()
+
+	script.
+		$('.buttons-container a.btn').click(function(e){
+			var name = $(this).data('name');
+			$.ajax({
+			  method:"POST",
+			  url:"/api/v1/counts",
+			  data:{name:name}
+			})
+			 .done(function( msg ){
+				$('.buttons-container [data-name="' +msg.name+'"] .badge').html(msg.count)
+			 });
+		})
+
+		setInterval(function(){
+				var duration = moment ('#{deadline}') - moment()
+				var d = moment.duration(duration)
+				$('.count-down').html(d.days() +'  days and  ' + d.hours() +  ':' + d.minutes() + ':' + d.seconds())
+		},1000)
+										
+
+
+
+
+
+
+
+
+
+
