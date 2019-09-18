@@ -3,7 +3,7 @@ extends layout
 block content
 	.container
 		if success
-			.alert.alert-success(role="alert") thank you! you've been successfully added.
+			.alert.alert-success(role="alert") بیماری و داروی شما با موفقیت ثبت شد . 
 				a.close(role='button',href="/" , aria-label='Close')
 					span(aria-hidden='true') ×
 
@@ -12,7 +12,7 @@ block content
 		.row
 			.col-lg-6.mb-3
 				.mb-2
-					b share Goal:  #{shareGoal}| So Far: #{totalClick}
+					b تعداد داروهای موجود :  #{shareGoal} |  مصرف شده : #{totalClick}
 				- var percent = Math.round(totalClick/shareGoal*100)
 
 				.progress.mb-2
@@ -22,31 +22,40 @@ block content
 
 				.buttons-container
 					.button-container
-						a.btn.btn-lg.btn-block.btn-outline-primary(role="button" target="_blank" href="https://t.me/sina_testing_page" data-name="telegram")
-							i.fab.fa-telegram-plane
-							|	join my telegram channel
+						a.btn.btn-lg.btn-block.btn-outline-primary(role="button" target="_blank" href="index.pug" data-name="telegram")
+							
+							|	صبح
 							|         
 							span.badge.badge-light.float-right.mt-1= clickCounts.telegram || '0'
 
+
+				
+
 					.button-container
-						a.btn.btn-lg.btn-block.btn-outline-danger(role="button" target="_blank" href="https://instagram.com/testing_pages" data-name="instagram")
-							i.fab.fa-instagram
-							|   join my instagram channel 
+						a.btn.btn-lg.btn-block.btn-outline-danger(role="button" target="_blank" href="index.pug" data-name="instagram")
+							
+							|   ظهر
 							|         
 							span.badge.badge-light.float-right.mt-1= clickCounts.instagram || '0'
  
 
+					.buttons-container
 					.button-container
-						a.btn.btn-lg.btn-block.btn-outline-info(role="button" target="_blank" href="https://twitter.com/testing16378149" data-name="twitter")
-							i.fab.fa-twitter
-							|   join my twitter channel
+						a.btn.btn-lg.btn-block.btn-outline-primary(role="button" target="_blank" href="index.pug" data-name="telegram")
+							|	عصر
+							|         
+							span.badge.badge-light.float-right.mt-1= clickCounts.telegram || '0'
+
+					.button-container
+						a.btn.btn-lg.btn-block.btn-outline-info(role="button" target="_blank" href="views/index.pug" data-name="twitter")
+							|   شب
 							|         
 							span.badge.badge-light.float-right.mt-1= clickCounts.twitter || '0'
 
 
 			.col-lg-6
 				.mb-2
-					b Subscriber Goal:  #{goal}| So Far: #{count}
+					b  . . .زمان باقیمانده مصرف دارو  #{goal} | مانده: #{count}
 				- var percent = Math.round(count/goal*100)	
 
 				.progress.mb-2
@@ -57,17 +66,33 @@ block content
 
 				form(method="POST" action="/subscribe")
 					.form-group
-						label(for="name") your name:
-						input.form-control(id="name" name="name" placeholder="your full name ...")
+						label(for="name") نام دارو
+						input.form-control(id="name" name="name" placeholder="...نام داروی خود را وارد کنید ")
 					.form-group
-						label(for="email") your email address:
-						input.form-control(id="email" name="email" type="email" placeholder="please enter your email address...")
-					button.btn.btn-primary(type="submit") join email list
+						label(for="Sickness") نام بیماری
+						input.form-control(id="Sickness" name="Sickness"  placeholder="...نام بیماری خود را وارد کنید")
+
+					.form-group
+						label(for="drug-list") اسامی داروها
+						input.form-control(id="drug-list" name="name" placeholder="لیست داروها")
+
+
+					
+
+					button.btn.btn-primary.btn-block(type="submit")  برنامه ریزی اتوامتیک 
+
+					button.btn.btn-primary.btn-block(type="submit") برنامه ریزی دستی 
+
+
 
 
 				hr
+				
+				
+					
 
-				b latest Subscribers 
+
+				b اخرین داروها 
 				table.table.table-hover.table-borderless
 					each lead in leads
 						- var nameParts= lead.name.split(' ')

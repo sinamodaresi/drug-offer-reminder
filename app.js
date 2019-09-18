@@ -20,8 +20,8 @@ const deadline='2019-12-22 17:00:00'
 
 
 
-const  subscriberGoal = 100
-const shareGoal = 100
+const  subscriberGoal = 200
+const shareGoal = 200
 
 mongoose.connect('mongodb://localhost/lead-generator', { useNewUrlParser: true });
 

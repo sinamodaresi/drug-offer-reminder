@@ -1,6 +1,43 @@
+
+
+
+
 .button-container{
-	padding: 20px 0 ;
+	padding-left: 50px;
+	text-align: center;
+	
+	
 }
 
-.buttons-container  {
+.buttons-container a  {
+	width:400px;
+	height: 90px;;
+	font-size: 40px;
+	text-align: center;
+	
+
 }
+
+.form-group ::placeholder{
+font-size: 20px;
+text-align: right;
+
+}
+
+.form-group label{
+	font-size: 20px;
+	padding-left: 220px;
+	font-weight: bold;
+	
+	}
+.container  b:nth-child(1)  {
+	padding-left: 150px;
+	font-weight: bolder;
+	padding:auto;
+}
+
+b:nth-child(6){
+padding-left: 200px;
+}
+
+
